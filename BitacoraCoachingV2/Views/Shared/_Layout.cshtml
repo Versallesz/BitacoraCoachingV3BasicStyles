@@ -45,11 +45,14 @@
 
     <!-------------------------BODY CONTAINER--------------------------->
 
-    <div class="container body-content">
-        @RenderBody()
+    <div>
+        <div class="container body-content mb-5">
+            @RenderBody()
+        </div>
+        
         <hr />
         <!-------------------------FOOTER--------------------------->
-        <footer class="w-100 bg-secondary">
+        <footer class="footer bg-secondary">
             <p>&copy; @DateTime.Now.Year - Bitacora Coaching</p>
         </footer>
     </div>

@@ -2,15 +2,16 @@
 
 @{
     List<SelectListItem> items2 = (List<SelectListItem>)ViewBag.items2;
-    ViewBag.Title = "Editar";
+    ViewBag.Title = "Editar Proceso";
 }
 
-<h2>@ViewBag.Title</h2>
+
 
 @using (Html.BeginForm("Editar", "AmbCoach", FormMethod.Post))
 {
     <div class="row">
-        <div class="col-md-6 col-sm-12">
+        <div class="col-lg-6 col-md-12 display-box mt-5 mb-5 mx-3">
+            <h2>@ViewBag.Title</h2>
             @Html.HiddenFor(d => d.id_proceso)
             <div class="form-inline">
                 @Html.LabelFor(d => d.fecha_inicio)
@@ -26,12 +27,12 @@
             </div>
             <div>
                 @Html.LabelFor(d => d.plan_accion)
-                @Html.TextBoxFor(d => d.plan_accion, "", new { @class = "form-control" })
+                @Html.TextAreaFor(d => d.plan_accion, new { @class = "form-control" })
                 @Html.ValidationMessageFor(d => d.plan_accion, null, new { @class = "text-danger" })
             </div>
             <div>
-                @Html.LabelFor(d => d.objetivo_proceso)
-                @Html.TextBoxFor(d => d.objetivo_proceso, "", new { @class = "form-control" })
+                <label>Objetivo del proceso</label>
+                @Html.TextAreaFor(d => d.objetivo_proceso, new { @class = "form-control" })
                 @Html.ValidationMessageFor(d => d.objetivo_proceso, null, new { @class = "text-danger" })
             </div>
             <div>
@@ -41,13 +42,13 @@
             </div>
 
             <div class="">
-                <input value="Guardar" class="btn btn-success mt-2" type="submit" />
-                <a class="btn btn-outline-secondary mt-2" href="/AmbCoach">Cancelar</a>
+                <input value="Guardar" class="btn btn-success mt-2 btn-block" type="submit" />
+                <a class="btn btn-outline-secondary mt-2 btn-block" href="/AmbCoach">Cancelar</a>
             </div>
         </div>
         
-        <div class="col-md-6 col-sm-12">
-            <img src="#" alt="Alternate Text" />
+        <div class="col-lg-5 col-sm-12 mt-5 mx-auto my-auto d-flex">
+            <img src="~/Content/imgs/editable.svg" alt="Alternate Text" class="mx-auto img-responsive" />
         </div>
 
     </div>

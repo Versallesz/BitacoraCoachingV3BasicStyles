@@ -40,6 +40,24 @@ p, a, span, input, td, th, label{
     border-radius:15px;
 }
 
+/* info de editar coaches, coachees, procesos*/
+.display-box {
+    padding: 25px;
+    border-radius:15px;
+    -webkit-box-shadow: 0px 7px 18px 0px rgba(0,0,0,0.3);
+    box-shadow: 0px 7px 18px 0px rgba(0,0,0,0.3);
+}
+
+.img-responsive {
+    height: 280px;
+}
+
+@media screen and (max-width: 425px){
+    .img-responsive {
+        height: 150px;
+    }
+}
+
 /************NAVBAR***********/
 .navbar {
     min-height: 65px;
@@ -81,10 +99,11 @@ dropdown-item.active, .dropdown-item:active, .dropdown-item:hover {
 .proceso-preview {
     min-height: 70px;
     padding: 10px;
+    border: 1px solid #cecece;
     border-left: 4px solid var(--primary-color);
     border-radius: 1px 10px 10px 1px;
-    -webkit-box-shadow: 0px 5px 6px -2px rgba(0,0,0,0.33);
-    box-shadow: 0px 5px 6px -2px rgba(0,0,0,0.33);
+    -webkit-box-shadow: 0px 5px 6px -2px rgba(0,0,0,0.10);
+    box-shadow: 0px 5px 6px -2px rgba(0,0,0,0.10);
 }
 
 /************AMBIENTE COACH***********/

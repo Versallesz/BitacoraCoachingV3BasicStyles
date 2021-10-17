@@ -1,41 +1,47 @@
 ﻿@model BitacoraCoachingV2.Models.TableViewModels.CoachTableViewModel
 
 @{
-    ViewBag.Title = "Editar";
+    ViewBag.Title = "Editar Coach";
 }
 
-<h2>@ViewBag.Title</h2>
+
 
 @using (Html.BeginForm("Editar", "Coach", FormMethod.Post))
 {
-    <div class="row">
-        <div class="col-md-12">
-            @Html.HiddenFor(d => d.id_usuario)
-            <div>
-                @Html.LabelFor(d => d.email_usuario)
-                @Html.TextBoxFor(d => d.email_usuario, "", new { @class = "form-control" })
-                @Html.ValidationMessageFor(d => d.email_usuario, null, new { @class = "text-danger" })
-            </div>
-            <div>
-                @Html.LabelFor(d => d.pass_usuario)
-                @Html.TextBoxFor(d => d.pass_usuario, "", new { @class = "form-control" })
-                @Html.ValidationMessageFor(d => d.pass_usuario, null, new { @class = "text-danger" })
-            </div>
-            <div>
-                @Html.LabelFor(d => d.nombre_usuario)
-                @Html.TextBoxFor(d => d.nombre_usuario, "", new { @class = "form-control" })
-                @Html.ValidationMessageFor(d => d.nombre_usuario, null, new { @class = "text-danger" })
-            </div>
-            <div>
-                @Html.LabelFor(d => d.fono_usuario)
-                @Html.TextBoxFor(d => d.fono_usuario, "", new { @class = "form-control" })
-                @Html.ValidationMessageFor(d => d.fono_usuario, null, new { @class = "text-danger" })
-            </div>
-            <div>
-                <input value="Guardar" style="color: #ffffff; background-color: #000000" class="btn" type="submit" />
-            </div>
+<div class="row">
+
+    <div class="col-lg-6 col-md-12 display-box mt-5 mb-5 mx-3">
+        <h2>@ViewBag.Title</h2>
+        @Html.HiddenFor(d => d.id_usuario)
+        <div>
+            @Html.LabelFor(d => d.email_usuario)
+            @Html.TextBoxFor(d => d.email_usuario, "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(d => d.email_usuario, null, new { @class = "text-danger" })
+        </div>
+        <div>
+            @Html.LabelFor(d => d.pass_usuario)
+            @Html.TextBoxFor(d => d.pass_usuario, "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(d => d.pass_usuario, null, new { @class = "text-danger" })
+        </div>
+        <div>
+            @Html.LabelFor(d => d.nombre_usuario)
+            @Html.TextBoxFor(d => d.nombre_usuario, "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(d => d.nombre_usuario, null, new { @class = "text-danger" })
+        </div>
+        <div>
+            @Html.LabelFor(d => d.fono_usuario)
+            @Html.TextBoxFor(d => d.fono_usuario, "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(d => d.fono_usuario, null, new { @class = "text-danger" })
+        </div>
+        <div class="">
+            <input value="Guardar" class="btn btn-success mt-2 btn-block" type="submit" />
+            <a class="btn btn-outline-secondary mt-2 btn-block" href="/Coach">Cancelar</a>
         </div>
     </div>
+    <div class="col-lg-5 col-sm-12 mt-5 mx-auto my-auto d-flex">
+        <img src="~/Content/imgs/editable.svg" alt="Editar Coach" class="mx-auto img-responsive"/>
+    </div>
+</div>
 }
 
 

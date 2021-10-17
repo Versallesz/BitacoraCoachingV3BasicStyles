@@ -2,20 +2,20 @@
 @{
     List<SelectListItem> items = (List<SelectListItem>)ViewBag.items;
     List<SelectListItem> items2 = (List<SelectListItem>)ViewBag.items2;
-    ViewBag.Title = "NuevoProceso";
+    ViewBag.Title = "Nuevo Proceso";
 }
 
-<h2>@ViewBag.Title</h2>
+
 
 @using (Html.BeginForm("NuevoProceso", "AmbCoach", FormMethod.Post))
 {
     <div class="row">
-        <div class="col-md-12">
-            
+        <div class="col-lg-6 col-md-12 display-box mt-5 mb-5 mx-3">
+            <h2>@ViewBag.Title</h2>
             <div class="form-inline">
                 @Html.LabelFor(d => d.fecha_inicio)
-                <br />
-                @Html.TextBoxFor(d => d.fecha_inicio, "", new { @class = "date-picker" })
+                <br /> 
+                @Html.TextBoxFor(d => d.fecha_inicio, "", new { @class = "date-picker form-control" })
                 @*@@Html.TextBox("fecha", "", new { @class = "date-picker" })*@
                 @*@@Html.EditorFor(d => d.fecha_inicio, "", new { @class = "form-control" })*@
 
@@ -27,12 +27,12 @@
             </div>
             <div>
                 @Html.LabelFor(d => d.plan_accion)
-                @Html.TextBoxFor(d => d.plan_accion, "", new { @class = "form-control" })
+                @Html.TextAreaFor(d => d.plan_accion, new { @class = "form-control" })
                 @Html.ValidationMessageFor(d => d.plan_accion, null, new { @class = "text-danger" })
             </div>
             <div>
                 @Html.LabelFor(d => d.objetivo_proceso)
-                @Html.TextBoxFor(d => d.objetivo_proceso, "", new { @class = "form-control" })
+                @Html.TextAreaFor(d => d.objetivo_proceso,  new { @class = "form-control" })
                 @Html.ValidationMessageFor(d => d.objetivo_proceso, null, new { @class = "text-danger" })
             </div>
             <div>
@@ -57,8 +57,12 @@
 
 
             <div>
-                <input value="Guardar" style="color: #ffffff; background-color: #000000" class="btn" type="submit" />
+                <input value="Guardar" class="btn btn-success mt-2 btn-block" type="submit" />
+                <a class="btn btn-outline-secondary mt-2 btn-block" href="/AmbCoach">Cancelar</a>
             </div>
+        </div>
+        <div class="col-lg-5 col-sm-12 mt-5 mx-auto my-auto d-flex">
+            <img src="~/Content/imgs/new_process.svg" alt="Nuevo Proceso" class="mx-auto img-responsive" />
         </div>
     </div>
 }

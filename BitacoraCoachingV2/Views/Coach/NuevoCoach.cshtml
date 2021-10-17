@@ -4,13 +4,13 @@
     ViewBag.Title = "Nuevo Coach";
 }
 
-<h2>@ViewBag.Title</h2>
+
 
 @using (Html.BeginForm("NuevoCoach", "Coach", FormMethod.Post))
 {
     <div class="row">
-        <div class="col-md-12">
-
+        <div class="col-lg-6 col-md-12 display-box mt-5 mb-5 mx-3">
+            <h2>@ViewBag.Title</h2>
             <div>
                 @Html.LabelFor(d => d.email_usuario)
                 @Html.TextBoxFor(d => d.email_usuario, "", new { @class = "form-control" })
@@ -33,8 +33,12 @@
             </div>
 
             <div>
-                <input value="Guardar" style="color: #ffffff; background-color: #000000" class="btn" type="submit" />
+                <input value="Guardar" class="btn btn-success mt-2 btn-block" type="submit" />
+                <a class="btn btn-outline-secondary mt-2 btn-block" href="/Coach">Cancelar</a>
             </div>
+        </div>
+        <div class="col-lg-5 col-sm-12 mt-5 mx-auto my-auto d-flex">
+            <img src="~/Content/imgs/agregar.svg" alt="Nuevo Coach" class="mx-auto img-responsive" />
         </div>
     </div>
 }
