@@ -1,0 +1,42 @@
+﻿@model BitacoraCoachingV2.Models.TableViewModels.CoachTableViewModel
+
+@{
+    ViewBag.Title = "Editar";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Editar", "Coach", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-12">
+            @Html.HiddenFor(d => d.id_usuario)
+            <div>
+                @Html.LabelFor(d => d.email_usuario)
+                @Html.TextBoxFor(d => d.email_usuario, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.email_usuario, null, new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.pass_usuario)
+                @Html.TextBoxFor(d => d.pass_usuario, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.pass_usuario, null, new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.nombre_usuario)
+                @Html.TextBoxFor(d => d.nombre_usuario, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.nombre_usuario, null, new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.fono_usuario)
+                @Html.TextBoxFor(d => d.fono_usuario, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.fono_usuario, null, new { @class = "text-danger" })
+            </div>
+            <div>
+                <input value="Guardar" style="color: #ffffff; background-color: #000000" class="btn" type="submit" />
+            </div>
+        </div>
+    </div>
+}
+
+
+

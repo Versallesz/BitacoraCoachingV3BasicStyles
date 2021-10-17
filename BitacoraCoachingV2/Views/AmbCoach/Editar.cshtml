@@ -1,0 +1,64 @@
+﻿@model BitacoraCoachingV2.Models.TableViewModels.NProcesosTableViewModel
+
+@{
+    List<SelectListItem> items2 = (List<SelectListItem>)ViewBag.items2;
+    ViewBag.Title = "Editar";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Editar", "AmbCoach", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            @Html.HiddenFor(d => d.id_proceso)
+            <div class="form-inline">
+                @Html.LabelFor(d => d.fecha_inicio)
+                <br />
+                @Html.TextBoxFor(d => d.fecha_inicio, "", new { @class = "date-picker ml-2" })
+                @*@@Html.EditorFor(d => d.fecha_inicio, "", new { @class = "form-control" })*@
+
+            </div>
+            <div>
+                @Html.LabelFor(d => d.indicador_exito)
+                @Html.TextBoxFor(d => d.indicador_exito, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.indicador_exito, null, new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.plan_accion)
+                @Html.TextBoxFor(d => d.plan_accion, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.plan_accion, null, new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.objetivo_proceso)
+                @Html.TextBoxFor(d => d.objetivo_proceso, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.objetivo_proceso, null, new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.cantidad_sesion)
+                @Html.TextBoxFor(d => d.cantidad_sesion, "", new { @class = "form-control", disabled = "disabled" })
+                @Html.ValidationMessageFor(d => d.cantidad_sesion, null, new { @class = "text-danger" })
+            </div>
+
+            <div class="">
+                <input value="Guardar" class="btn btn-success mt-2" type="submit" />
+                <a class="btn btn-outline-secondary mt-2" href="/AmbCoach">Cancelar</a>
+            </div>
+        </div>
+        
+        <div class="col-md-6 col-sm-12">
+            <img src="#" alt="Alternate Text" />
+        </div>
+
+    </div>
+}
+
+@section scripts{
+    <script type="text/javascript">
+                $(function () {
+                    $('.date-picker').datepicker({ dateFormat: 'yy-mm-dd' })
+                })
+    </script>
+
+
+}

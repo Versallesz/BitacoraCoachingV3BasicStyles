@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="91f79e8e96c44b4398ed62a5cd631ce5" Name="Diagram1">
+        <EntityTypeShape EntityType="COACHING6Model.Empresa" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="COACHING6Model.Jefe" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="COACHING6Model.Operacion" Width="1.5" PointX="3" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="COACHING6Model.Proceso" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="COACHING6Model.Proceso_usuario" Width="1.5" PointX="7.5" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="COACHING6Model.Rol" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="COACHING6Model.Rol_operacion" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="COACHING6Model.Sesion" Width="1.5" PointX="7.5" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="COACHING6Model.Usuario" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="COACHING6Model.Jefe_Empresa_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="COACHING6Model.Usuario_Empresa_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="COACHING6Model.Usuario_Jefe_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="COACHING6Model.Rol_operacion_Operacion_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="COACHING6Model.Proceso_usuario_Proceso_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="COACHING6Model.Sesion_Proceso_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="COACHING6Model.Proceso_usuario_Usuario_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="COACHING6Model.Rol_operacion_Rol_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="COACHING6Model.Usuario_Rol_FK" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Iniciar Sesión";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="container ">
+    <form id="frm">
+        <div class="login-card row col-lg-5 col-md-6 col-sm-12 mx-auto justify-content-center">
+            <h1>Inicio de Sesión</h1>
+            <div class="col-12 mx-auto">
+                <p>Usuario/Email</p>
+                <input type="text" name="user" class="login-input form-control" />
+            </div>
+            <div class="col-12 mx-auto mb-4">
+                <p>Contraseña</p>
+                <input type="password" name="password" class="login-input form-control" />
+            </div>
+            <input type="submit" class="btn btn-primary btn-block"  value="Ingresar" />
+        </div>
+    </form>
+</div>
+
+@section scripts
+    {
+    <script>
+    $(document).ready(function () {
+        $("#frm").submit(function (e) {
+            e.preventDefault();
+            url = "@Url.Content("~/Access/Enter")"
+            parametros = $(this).serialize();
+
+            $.post(url, parametros, function (data) {
+                if (data == "1") {
+                    document.location.href = "@Url.Content("~/")";
+                }else {
+                    alert(data);
+                }
+            })
+        })
+    })
+    </script>
+}

@@ -1,0 +1,93 @@
+﻿@model BitacoraCoachingV2.Models.TableViewModels.UsuariosTableViewModel
+
+@{
+    
+    List<SelectListItem> items2 = (List<SelectListItem>)ViewBag.items2;
+    ViewBag.Title = "Nuevo Coachee";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("NuevoUsuario", "Usuarios", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-12">
+           
+            <div>
+                @Html.LabelFor(d => d.email_usuario)
+                @Html.TextBoxFor(d => d.email_usuario, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.email_usuario, null, new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.pass_usuario)
+                @Html.TextBoxFor(d => d.pass_usuario, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.pass_usuario, null, new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.nombre_usuario)
+                @Html.TextBoxFor(d => d.nombre_usuario, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.nombre_usuario, null, new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.fono_usuario)
+                @Html.TextBoxFor(d => d.fono_usuario, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.fono_usuario, null, new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.LabelFor(d => d.cargo_usuario)
+                @Html.TextBoxFor(d => d.cargo_usuario, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.cargo_usuario, null, new { @class = "text-danger" })
+            </div>
+           
+
+           
+
+            <div class="form-group">
+                @Html.LabelFor(d => d.Empresa_id_empresa)
+
+                @Html.DropDownListFor(d => d.Empresa_id_empresa, (IEnumerable<SelectListItem>)ViewBag.items2, new { @class = "form-control", id = "Company" })
+                <br />
+                @Html.LabelFor(d => d.Jefe_id_jefe)
+                <select id="area" name="area" class="form-control"></select>
+                <br />
+                @*@Html.DropDownList("empresas", items2, new { @class = "form-control", id = "Company" })*@
+                @*@@Html.DropDownList("empresas", items2, "Todas las Empresas", new { @class = "form-control" })*@
+            </div>
+            
+
+            <div>
+                <input value="Guardar" style="color: #ffffff; background-color: #000000" class="btn" type="submit" />
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    var cboCompany = document.getElementById("Company");
+    cboCompany.addEventListener("change", Refresh);
+    Refresh();
+    function Refresh()
+    {
+        fetch("@Url.Content("~/Usuarios/Jefe")" + "?idCompany=" + cboCompany.value)
+            .then(function (result)
+            {
+                if (result.ok) {
+                    return result.json();
+                }
+            })
+            .then(function (data)
+            {
+                console.log(data);
+                cbo = document.getElementById("area");
+                cbo.innerHTML = "";
+                data.forEach(function (element) {
+                    let opt = document.createElement("option");
+                    opt.appendChild(document.createTextNode(element.text));
+                    opt.value = element.value;
+                    cbo.appendChild(opt);
+                })
+            })
+    }
+
+</script>
+

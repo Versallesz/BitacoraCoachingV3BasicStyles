@@ -1,0 +1,125 @@
+﻿@model List<BitacoraCoachingV2.Models.TableViewModels.ProcesosTableViewModel>
+@{
+    List<SelectListItem> items = (List<SelectListItem>)ViewBag.items;
+    List<SelectListItem> items2 = (List<SelectListItem>)ViewBag.items2;
+    ViewBag.Title = "Inicio";
+}
+
+@using (Html.BeginForm("Buscar", "Procesos", FormMethod.Post))
+{
+    <div>
+        <div class="mt-5 pt-5">
+            <p>Selecciona un Coach</p>
+        </div>
+        <div class="panel-body">
+
+            <div class="form-inline">
+                <div class="col-12">
+                    @Html.DropDownList("coachs", items, "Todos los Coach's", new { @class = "form-control dropdown-coaches w-100 col-lg-4 col-md-6 col-sm-12 mb-2" })
+                    <button type="submit" class="btn btn-info btn-buscar  col-lg-3 col-md-2 col-sm-12 mb-2">Filtrar <i class="fa fa-search" aria-hidden="true"></i></button>
+                </div>
+                <br />
+                <br />
+                @*@@Html.DropDownList("empresas", items2, "Todas las Empresas", new { @class = "form-control" })*@
+            </div>
+            
+        </div>
+    </div>
+}
+
+
+<h2>Procesos existentes</h2>
+<div class="row">
+    <div class="col-lg-7 col-sm-12 mt-4 d-flex flex-wrap align-items-center">
+
+        <div class=" col-12">
+            @foreach (var oElement in Model)
+            {
+                if (oElement.id_proceso != 0)
+                {
+                    var id_proceso = oElement.id_proceso;
+
+                    /*Inserte campos aquí*/
+                    foreach (var oElement2 in Model)
+                    {
+                        if (oElement.id_proceso == oElement2.id_proceso_coachee)
+                        {   /****** CARTA DE PROCESO ******/
+                            <div class="proceso-preview mt-4 d-flex flex-wrap  align-items-center">
+                                <!-- Elementos carta de proceso -->
+                                <div class="col-12">
+                                    <h2>Proceso @oElement2.nombre_empresa_coachee, @oElement2.nombre_usuario_coachee</h2>
+                                </div>
+                                <div class="col-12 row">
+                                    <div class="proceso-preview_info col-md-1 col-sm-2 ">
+                                        <span class="align-middle titulo-campos-responsive"><strong>ID:</strong></span> <br class="d-md-none d-lg-none" />
+                                        <span class="align-middle">@oElement.id_proceso</span>
+                                    </div>
+                                    <div class="proceso-preview_info col-md-4  col-sm-3">
+                                        <span class="align-middle titulo-campos-responsive"><strong>Coach:</strong></span> <br class="d-md-none d-lg-none" />
+                                        <span class="align-middle">@oElement.nombre_usuario</span>
+                                    </div>
+
+                                    <div class="proceso-preview_info col-md-4 col-sm-3 ">
+                                        <span class="align-middle titulo-campos-responsive"><strong>Coachee:</strong></span> <br class="d-md-none d-lg-none" />
+                                        <span class="align-middle">@oElement2.nombre_usuario_coachee </span>
+                                    </div>
+                                    <div class="proceso-preview_info col-md-3 col-sm-3 ">
+                                        <span class="align-middle titulo-campos-responsive"><strong>Empresa:</strong></span> <br class="d-md-none d-lg-none" />
+                                        <span class="align-middle">@oElement2.nombre_empresa_coachee </span>
+                                    </div>
+                                </div>
+                                   
+                            </div>
+
+                        }
+                    }
+
+
+                    
+
+                }
+            }
+
+        </div>
+
+        <!---------------------------------------->
+        @*<table class="table table-bordered">
+            <tr>
+                <th>Proceso </th>
+                <th>Coach</th>
+                <th>Coachee</th>
+                <th>Empresa Coachee</th>
+                <th>Cargo</th>
+                <th>Fecha de inicio </th>
+                <th>Indicador de éxito </th>
+                <th>Plan de accion </th>
+                <th>Objetivo</th>
+                <th>Cant. de sesiones </th>
+
+            </tr>
+            @foreach (var oElement in Model)
+            {
+                if (oElement.id_proceso != 0)
+                {
+                    var id_proceso = oElement.id_proceso;
+                    <tr>
+                        <td>@oElement.id_proceso </td>
+                        <td>@oElement.nombre_usuario </td>
+                        @foreach(var oElement2 in Model){ if (oElement.id_proceso == oElement2.id_proceso_coachee) { <td>@oElement2.nombre_usuario_coachee</td> } }
+                        @foreach(var oElement2 in Model){ if (oElement.id_proceso == oElement2.id_proceso_coachee) {  <td>@oElement2.nombre_empresa_coachee </td> } }
+                        @foreach(var oElement2 in Model){ if (oElement.id_proceso == oElement2.id_proceso_coachee) {  <td>@oElement2.cargo_coachee </td> } }
+                        <td>@oElement.fecha_inicio </td>
+                        <td>@oElement.indicador_exito </td>
+                        <td>@oElement.plan_accion </td>
+                        <td>@oElement.objetivo_proceso </td>
+                        <td>@oElement.cantidad_sesion </td>
+                    </tr>
+                }
+            }
+        </table>*@
+    </div>
+    <div class="col-lg-5 col-sm-12">
+        <p>un bonito calendario innecesario</p>
+    </div>
+
+</div>

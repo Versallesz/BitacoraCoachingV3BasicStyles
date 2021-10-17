@@ -1,0 +1,628 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="COACHING6Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="id_empresa" />
+          </Key>
+          <Property Name="id_empresa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_empresa" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Jefe">
+          <Key>
+            <PropertyRef Name="id_jefe" />
+          </Key>
+          <Property Name="id_jefe" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_jefe" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="email_jefe" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fono_jefe" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Empresa_id_empresa" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Operacion">
+          <Key>
+            <PropertyRef Name="id_operacion" />
+          </Key>
+          <Property Name="id_operacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_operacion" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Proceso">
+          <Key>
+            <PropertyRef Name="id_proceso" />
+          </Key>
+          <Property Name="id_proceso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha_inicio" Type="date" Nullable="false" />
+          <Property Name="indicador_exito" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="plan_accion" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="objetivo_proceso" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="cantidad_sesion" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Proceso_usuario">
+          <Key>
+            <PropertyRef Name="idp" />
+          </Key>
+          <Property Name="idp" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Proceso_id_proceso" Type="int" Nullable="false" />
+          <Property Name="Usuario_id_usuario" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="id_rol" />
+          </Key>
+          <Property Name="id_rol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_rol" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rol_operacion">
+          <Key>
+            <PropertyRef Name="idr" />
+          </Key>
+          <Property Name="idr" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rol_id_rol" Type="int" Nullable="false" />
+          <Property Name="Operacion_id_operacion" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sesion">
+          <Key>
+            <PropertyRef Name="id_sesion" />
+          </Key>
+          <Property Name="id_sesion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha_sesion" Type="date" Nullable="false" />
+          <Property Name="descripcion_sesion" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="estado_sesion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="documento_sesion" Type="varchar" MaxLength="1000" />
+          <Property Name="Proceso_id_proceso" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email_usuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="pass_usuario" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="nombre_usuario" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="fono_usuario" Type="varchar" MaxLength="20" />
+          <Property Name="cargo_usuario" Type="varchar" MaxLength="50" />
+          <Property Name="Rol_id_rol" Type="int" Nullable="false" />
+          <Property Name="Empresa_id_empresa" Type="int" />
+          <Property Name="Jefe_id_jefe" Type="int" />
+        </EntityType>
+        <Association Name="Jefe_Empresa_FK">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="1" />
+          <End Role="Jefe" Type="Self.Jefe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="id_empresa" />
+            </Principal>
+            <Dependent Role="Jefe">
+              <PropertyRef Name="Empresa_id_empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Proceso_usuario_Proceso_FK">
+          <End Role="Proceso" Type="Self.Proceso" Multiplicity="1" />
+          <End Role="Proceso_usuario" Type="Self.Proceso_usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proceso">
+              <PropertyRef Name="id_proceso" />
+            </Principal>
+            <Dependent Role="Proceso_usuario">
+              <PropertyRef Name="Proceso_id_proceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Proceso_usuario_Usuario_FK">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Proceso_usuario" Type="Self.Proceso_usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Proceso_usuario">
+              <PropertyRef Name="Usuario_id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Rol_operacion_Operacion_FK">
+          <End Role="Operacion" Type="Self.Operacion" Multiplicity="1" />
+          <End Role="Rol_operacion" Type="Self.Rol_operacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operacion">
+              <PropertyRef Name="id_operacion" />
+            </Principal>
+            <Dependent Role="Rol_operacion">
+              <PropertyRef Name="Operacion_id_operacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Rol_operacion_Rol_FK">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="Rol_operacion" Type="Self.Rol_operacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="id_rol" />
+            </Principal>
+            <Dependent Role="Rol_operacion">
+              <PropertyRef Name="Rol_id_rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Sesion_Proceso_FK">
+          <End Role="Proceso" Type="Self.Proceso" Multiplicity="1" />
+          <End Role="Sesion" Type="Self.Sesion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proceso">
+              <PropertyRef Name="id_proceso" />
+            </Principal>
+            <Dependent Role="Sesion">
+              <PropertyRef Name="Proceso_id_proceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Usuario_Empresa_FK">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="id_empresa" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="Empresa_id_empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Usuario_Jefe_FK">
+          <End Role="Jefe" Type="Self.Jefe" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jefe">
+              <PropertyRef Name="id_jefe" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="Jefe_id_jefe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Usuario_Rol_FK">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="id_rol" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="Rol_id_rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="COACHING6ModelStoreContainer">
+          <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Jefe" EntityType="Self.Jefe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Operacion" EntityType="Self.Operacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proceso" EntityType="Self.Proceso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proceso_usuario" EntityType="Self.Proceso_usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol_operacion" EntityType="Self.Rol_operacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sesion" EntityType="Self.Sesion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Jefe_Empresa_FK" Association="Self.Jefe_Empresa_FK">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="Jefe" EntitySet="Jefe" />
+          </AssociationSet>
+          <AssociationSet Name="Proceso_usuario_Proceso_FK" Association="Self.Proceso_usuario_Proceso_FK">
+            <End Role="Proceso" EntitySet="Proceso" />
+            <End Role="Proceso_usuario" EntitySet="Proceso_usuario" />
+          </AssociationSet>
+          <AssociationSet Name="Proceso_usuario_Usuario_FK" Association="Self.Proceso_usuario_Usuario_FK">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Proceso_usuario" EntitySet="Proceso_usuario" />
+          </AssociationSet>
+          <AssociationSet Name="Rol_operacion_Operacion_FK" Association="Self.Rol_operacion_Operacion_FK">
+            <End Role="Operacion" EntitySet="Operacion" />
+            <End Role="Rol_operacion" EntitySet="Rol_operacion" />
+          </AssociationSet>
+          <AssociationSet Name="Rol_operacion_Rol_FK" Association="Self.Rol_operacion_Rol_FK">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Rol_operacion" EntitySet="Rol_operacion" />
+          </AssociationSet>
+          <AssociationSet Name="Sesion_Proceso_FK" Association="Self.Sesion_Proceso_FK">
+            <End Role="Proceso" EntitySet="Proceso" />
+            <End Role="Sesion" EntitySet="Sesion" />
+          </AssociationSet>
+          <AssociationSet Name="Usuario_Empresa_FK" Association="Self.Usuario_Empresa_FK">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="Usuario_Jefe_FK" Association="Self.Usuario_Jefe_FK">
+            <End Role="Jefe" EntitySet="Jefe" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="Usuario_Rol_FK" Association="Self.Usuario_Rol_FK">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="COACHING6Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="id_empresa" />
+          </Key>
+          <Property Name="id_empresa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_empresa" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Jefe" Relationship="Self.Jefe_Empresa_FK" FromRole="Empresa" ToRole="Jefe" />
+          <NavigationProperty Name="Usuario" Relationship="Self.Usuario_Empresa_FK" FromRole="Empresa" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Jefe">
+          <Key>
+            <PropertyRef Name="id_jefe" />
+          </Key>
+          <Property Name="id_jefe" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_jefe" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email_jefe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fono_jefe" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Empresa_id_empresa" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Empresa" Relationship="Self.Jefe_Empresa_FK" FromRole="Jefe" ToRole="Empresa" />
+          <NavigationProperty Name="Usuario" Relationship="Self.Usuario_Jefe_FK" FromRole="Jefe" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Operacion">
+          <Key>
+            <PropertyRef Name="id_operacion" />
+          </Key>
+          <Property Name="id_operacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_operacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Rol_operacion" Relationship="Self.Rol_operacion_Operacion_FK" FromRole="Operacion" ToRole="Rol_operacion" />
+        </EntityType>
+        <EntityType Name="Proceso">
+          <Key>
+            <PropertyRef Name="id_proceso" />
+          </Key>
+          <Property Name="id_proceso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha_inicio" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="indicador_exito" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="plan_accion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="objetivo_proceso" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cantidad_sesion" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Proceso_usuario" Relationship="Self.Proceso_usuario_Proceso_FK" FromRole="Proceso" ToRole="Proceso_usuario" />
+          <NavigationProperty Name="Sesion" Relationship="Self.Sesion_Proceso_FK" FromRole="Proceso" ToRole="Sesion" />
+        </EntityType>
+        <EntityType Name="Proceso_usuario">
+          <Key>
+            <PropertyRef Name="idp" />
+          </Key>
+          <Property Name="idp" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Proceso_id_proceso" Type="Int32" Nullable="false" />
+          <Property Name="Usuario_id_usuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Proceso" Relationship="Self.Proceso_usuario_Proceso_FK" FromRole="Proceso_usuario" ToRole="Proceso" />
+          <NavigationProperty Name="Usuario" Relationship="Self.Proceso_usuario_Usuario_FK" FromRole="Proceso_usuario" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="id_rol" />
+          </Key>
+          <Property Name="id_rol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_rol" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Rol_operacion" Relationship="Self.Rol_operacion_Rol_FK" FromRole="Rol" ToRole="Rol_operacion" />
+          <NavigationProperty Name="Usuario" Relationship="Self.Usuario_Rol_FK" FromRole="Rol" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Rol_operacion">
+          <Key>
+            <PropertyRef Name="idr" />
+          </Key>
+          <Property Name="idr" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rol_id_rol" Type="Int32" Nullable="false" />
+          <Property Name="Operacion_id_operacion" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Operacion" Relationship="Self.Rol_operacion_Operacion_FK" FromRole="Rol_operacion" ToRole="Operacion" />
+          <NavigationProperty Name="Rol" Relationship="Self.Rol_operacion_Rol_FK" FromRole="Rol_operacion" ToRole="Rol" />
+        </EntityType>
+        <EntityType Name="Sesion">
+          <Key>
+            <PropertyRef Name="id_sesion" />
+          </Key>
+          <Property Name="id_sesion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha_sesion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="descripcion_sesion" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estado_sesion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="documento_sesion" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Proceso_id_proceso" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Proceso" Relationship="Self.Sesion_Proceso_FK" FromRole="Sesion" ToRole="Proceso" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email_usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="pass_usuario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_usuario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fono_usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cargo_usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Rol_id_rol" Type="Int32" Nullable="false" />
+          <Property Name="Empresa_id_empresa" Type="Int32" />
+          <Property Name="Jefe_id_jefe" Type="Int32" />
+          <NavigationProperty Name="Empresa" Relationship="Self.Usuario_Empresa_FK" FromRole="Usuario" ToRole="Empresa" />
+          <NavigationProperty Name="Jefe" Relationship="Self.Usuario_Jefe_FK" FromRole="Usuario" ToRole="Jefe" />
+          <NavigationProperty Name="Proceso_usuario" Relationship="Self.Proceso_usuario_Usuario_FK" FromRole="Usuario" ToRole="Proceso_usuario" />
+          <NavigationProperty Name="Rol" Relationship="Self.Usuario_Rol_FK" FromRole="Usuario" ToRole="Rol" />
+        </EntityType>
+        <Association Name="Jefe_Empresa_FK">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="1" />
+          <End Role="Jefe" Type="Self.Jefe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="id_empresa" />
+            </Principal>
+            <Dependent Role="Jefe">
+              <PropertyRef Name="Empresa_id_empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Usuario_Empresa_FK">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="id_empresa" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="Empresa_id_empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Usuario_Jefe_FK">
+          <End Role="Jefe" Type="Self.Jefe" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jefe">
+              <PropertyRef Name="id_jefe" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="Jefe_id_jefe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Rol_operacion_Operacion_FK">
+          <End Role="Operacion" Type="Self.Operacion" Multiplicity="1" />
+          <End Role="Rol_operacion" Type="Self.Rol_operacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operacion">
+              <PropertyRef Name="id_operacion" />
+            </Principal>
+            <Dependent Role="Rol_operacion">
+              <PropertyRef Name="Operacion_id_operacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Proceso_usuario_Proceso_FK">
+          <End Role="Proceso" Type="Self.Proceso" Multiplicity="1" />
+          <End Role="Proceso_usuario" Type="Self.Proceso_usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proceso">
+              <PropertyRef Name="id_proceso" />
+            </Principal>
+            <Dependent Role="Proceso_usuario">
+              <PropertyRef Name="Proceso_id_proceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Sesion_Proceso_FK">
+          <End Role="Proceso" Type="Self.Proceso" Multiplicity="1" />
+          <End Role="Sesion" Type="Self.Sesion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proceso">
+              <PropertyRef Name="id_proceso" />
+            </Principal>
+            <Dependent Role="Sesion">
+              <PropertyRef Name="Proceso_id_proceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Proceso_usuario_Usuario_FK">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Proceso_usuario" Type="Self.Proceso_usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Proceso_usuario">
+              <PropertyRef Name="Usuario_id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Rol_operacion_Rol_FK">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="Rol_operacion" Type="Self.Rol_operacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="id_rol" />
+            </Principal>
+            <Dependent Role="Rol_operacion">
+              <PropertyRef Name="Rol_id_rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Usuario_Rol_FK">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="id_rol" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="Rol_id_rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="COACHING6Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Empresa" EntityType="Self.Empresa" />
+          <EntitySet Name="Jefe" EntityType="Self.Jefe" />
+          <EntitySet Name="Operacion" EntityType="Self.Operacion" />
+          <EntitySet Name="Proceso" EntityType="Self.Proceso" />
+          <EntitySet Name="Proceso_usuario" EntityType="Self.Proceso_usuario" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" />
+          <EntitySet Name="Rol_operacion" EntityType="Self.Rol_operacion" />
+          <EntitySet Name="Sesion" EntityType="Self.Sesion" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="Jefe_Empresa_FK" Association="Self.Jefe_Empresa_FK">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="Jefe" EntitySet="Jefe" />
+          </AssociationSet>
+          <AssociationSet Name="Usuario_Empresa_FK" Association="Self.Usuario_Empresa_FK">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="Usuario_Jefe_FK" Association="Self.Usuario_Jefe_FK">
+            <End Role="Jefe" EntitySet="Jefe" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="Rol_operacion_Operacion_FK" Association="Self.Rol_operacion_Operacion_FK">
+            <End Role="Operacion" EntitySet="Operacion" />
+            <End Role="Rol_operacion" EntitySet="Rol_operacion" />
+          </AssociationSet>
+          <AssociationSet Name="Proceso_usuario_Proceso_FK" Association="Self.Proceso_usuario_Proceso_FK">
+            <End Role="Proceso" EntitySet="Proceso" />
+            <End Role="Proceso_usuario" EntitySet="Proceso_usuario" />
+          </AssociationSet>
+          <AssociationSet Name="Sesion_Proceso_FK" Association="Self.Sesion_Proceso_FK">
+            <End Role="Proceso" EntitySet="Proceso" />
+            <End Role="Sesion" EntitySet="Sesion" />
+          </AssociationSet>
+          <AssociationSet Name="Proceso_usuario_Usuario_FK" Association="Self.Proceso_usuario_Usuario_FK">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Proceso_usuario" EntitySet="Proceso_usuario" />
+          </AssociationSet>
+          <AssociationSet Name="Rol_operacion_Rol_FK" Association="Self.Rol_operacion_Rol_FK">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Rol_operacion" EntitySet="Rol_operacion" />
+          </AssociationSet>
+          <AssociationSet Name="Usuario_Rol_FK" Association="Self.Usuario_Rol_FK">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="COACHING6ModelStoreContainer" CdmEntityContainer="COACHING6Entities">
+          <EntitySetMapping Name="Empresa">
+            <EntityTypeMapping TypeName="COACHING6Model.Empresa">
+              <MappingFragment StoreEntitySet="Empresa">
+                <ScalarProperty Name="id_empresa" ColumnName="id_empresa" />
+                <ScalarProperty Name="nombre_empresa" ColumnName="nombre_empresa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jefe">
+            <EntityTypeMapping TypeName="COACHING6Model.Jefe">
+              <MappingFragment StoreEntitySet="Jefe">
+                <ScalarProperty Name="id_jefe" ColumnName="id_jefe" />
+                <ScalarProperty Name="nombre_jefe" ColumnName="nombre_jefe" />
+                <ScalarProperty Name="email_jefe" ColumnName="email_jefe" />
+                <ScalarProperty Name="fono_jefe" ColumnName="fono_jefe" />
+                <ScalarProperty Name="Empresa_id_empresa" ColumnName="Empresa_id_empresa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Operacion">
+            <EntityTypeMapping TypeName="COACHING6Model.Operacion">
+              <MappingFragment StoreEntitySet="Operacion">
+                <ScalarProperty Name="id_operacion" ColumnName="id_operacion" />
+                <ScalarProperty Name="nombre_operacion" ColumnName="nombre_operacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proceso">
+            <EntityTypeMapping TypeName="COACHING6Model.Proceso">
+              <MappingFragment StoreEntitySet="Proceso">
+                <ScalarProperty Name="id_proceso" ColumnName="id_proceso" />
+                <ScalarProperty Name="fecha_inicio" ColumnName="fecha_inicio" />
+                <ScalarProperty Name="indicador_exito" ColumnName="indicador_exito" />
+                <ScalarProperty Name="plan_accion" ColumnName="plan_accion" />
+                <ScalarProperty Name="objetivo_proceso" ColumnName="objetivo_proceso" />
+                <ScalarProperty Name="cantidad_sesion" ColumnName="cantidad_sesion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proceso_usuario">
+            <EntityTypeMapping TypeName="COACHING6Model.Proceso_usuario">
+              <MappingFragment StoreEntitySet="Proceso_usuario">
+                <ScalarProperty Name="idp" ColumnName="idp" />
+                <ScalarProperty Name="Proceso_id_proceso" ColumnName="Proceso_id_proceso" />
+                <ScalarProperty Name="Usuario_id_usuario" ColumnName="Usuario_id_usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rol">
+            <EntityTypeMapping TypeName="COACHING6Model.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="id_rol" ColumnName="id_rol" />
+                <ScalarProperty Name="nombre_rol" ColumnName="nombre_rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rol_operacion">
+            <EntityTypeMapping TypeName="COACHING6Model.Rol_operacion">
+              <MappingFragment StoreEntitySet="Rol_operacion">
+                <ScalarProperty Name="idr" ColumnName="idr" />
+                <ScalarProperty Name="Rol_id_rol" ColumnName="Rol_id_rol" />
+                <ScalarProperty Name="Operacion_id_operacion" ColumnName="Operacion_id_operacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sesion">
+            <EntityTypeMapping TypeName="COACHING6Model.Sesion">
+              <MappingFragment StoreEntitySet="Sesion">
+                <ScalarProperty Name="id_sesion" ColumnName="id_sesion" />
+                <ScalarProperty Name="fecha_sesion" ColumnName="fecha_sesion" />
+                <ScalarProperty Name="descripcion_sesion" ColumnName="descripcion_sesion" />
+                <ScalarProperty Name="estado_sesion" ColumnName="estado_sesion" />
+                <ScalarProperty Name="documento_sesion" ColumnName="documento_sesion" />
+                <ScalarProperty Name="Proceso_id_proceso" ColumnName="Proceso_id_proceso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="COACHING6Model.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="email_usuario" ColumnName="email_usuario" />
+                <ScalarProperty Name="pass_usuario" ColumnName="pass_usuario" />
+                <ScalarProperty Name="nombre_usuario" ColumnName="nombre_usuario" />
+                <ScalarProperty Name="fono_usuario" ColumnName="fono_usuario" />
+                <ScalarProperty Name="cargo_usuario" ColumnName="cargo_usuario" />
+                <ScalarProperty Name="Rol_id_rol" ColumnName="Rol_id_rol" />
+                <ScalarProperty Name="Empresa_id_empresa" ColumnName="Empresa_id_empresa" />
+                <ScalarProperty Name="Jefe_id_jefe" ColumnName="Jefe_id_jefe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

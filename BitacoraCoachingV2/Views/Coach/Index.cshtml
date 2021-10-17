@@ -1,0 +1,62 @@
+﻿@model List<BitacoraCoachingV2.Models.TableViewModels.AmbCoachTableViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row mt-5">
+    <a href="~/Usuarios/NuevoUsuario" class="btn btn-primary mb-2 col-sm-12 col-md-3">Nuevo Coach</a>
+</div>
+
+<h2>Coach's existentes</h2>
+<div class="row">
+    <div class=" table-responsive col-lg-12">
+        <table class="table table-striped">
+            <tr>
+                <th>id</th>
+                <th>Email </th>
+                <th>Nombre</th>
+                <th>Contrasña</th>
+                <th>Telefono</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+            </tr>
+            @foreach (var oElement in Model)
+            {
+                if (oElement.id_usuario != 0)
+                {
+                    var xd = oElement.id_usuario;
+                    <tr>
+                        <td>@oElement.id_usuario </td>
+                        <td>@oElement.email_usuario </td>
+                        <td>@oElement.nombre_usuario </td>
+                        <td>@oElement.pass_usuario </td>
+                        <td>@oElement.fono_usuario </td>
+                        <td>@oElement.Rol_id_rol </td>
+                        <td>
+                           
+                             
+                                <a class="btn btn-warning btn-block" href="/Coach/Editar?id_usuario=@oElement.id_usuario">Editar</a>
+                                <!-- Añadir mensaje de confirmación 'Desea eliminar el Proceso?'-->
+                                <a class="btn btn-danger btn-block" href="/Coach/Eliminar?id_usuario=@oElement.id_usuario">Eliminar</a>
+
+                            @*<button class="btn" style="color: #ffffff; background-color: #000000">@Html.ActionLink("Editar", "Editar", "Coach", new { id_usuario = oElement.id_usuario }, new { @style = "color: #ffffff" })</button>
+                            <button class="btn" style="color: #ffffff; background-color: #000000">@Html.ActionLink("Eliminar", "Eliminar", "Coach", new { id_usuario = oElement.id_usuario }, new { @style = "color: #ffffff" })</button>*@
+                        </td>
+                    </tr>
+
+                }
+
+            }
+        </table>
+
+    </div>
+</div>
+<script>
+    Editar = function (id_usuario) {
+        $.post(
+            'Coach/Editar', {
+            id_usuario: id_usuario
+        });
+    };
+</script>
+

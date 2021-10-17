@@ -1,0 +1,96 @@
+﻿
+/************GLOBAL***********/
+:root {
+    --primary-color: #3AC2E1;
+}
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 62.5%;
+    font-family: "Roboto", sans-serif;
+    scroll-behavior: smooth;
+}
+
+p, a, span, input, td, th, label{
+    font-size:1.6rem;
+}
+
+.form-control {
+    font-size:1.6rem;
+    border-radius: 15px;
+}
+
+.form-control:focus {
+    border-color: #3AC2E1;
+    box-shadow: none;
+}
+.btn {
+    font-size: 1.5rem;
+    border-radius: 20px;
+}
+
+.date-picker {
+    border:1px solid gray;
+    border-radius:15px;
+}
+
+/************NAVBAR***********/
+.navbar {
+    min-height: 65px;
+}
+.dropdown-menu {
+    border-radius: 15px;
+    background-color: #ccd0d3;
+}
+dropdown-item.active, .dropdown-item:active, .dropdown-item:hover {
+    border-radius: 15px;
+}
+
+
+/************LOGIN***********/
+.login-input{
+    height:30px;
+    min-width:190px;
+    padding:5px;
+    border:1px solid gray;
+    font-size: 1.6rem;
+}
+
+.login-card {
+    padding: 20px;
+    margin-bottom:20%;
+    border-radius: 15px;
+    -webkit-box-shadow: 0px 6px 14px 2px rgba(0,0,0,0.35);
+    box-shadow: 0px 6px 14px 2px rgba(0,0,0,0.35);
+}
+
+/************INICIO(PROCESOS)***********/
+.form-inline .dropdown-coaches{
+    height:40px;
+    width:180px;
+    font-size:1.6rem;
+    border-radius:20px;
+}
+
+.proceso-preview {
+    min-height: 70px;
+    padding: 10px;
+    border-left: 4px solid var(--primary-color);
+    border-radius: 1px 10px 10px 1px;
+    -webkit-box-shadow: 0px 5px 6px -2px rgba(0,0,0,0.33);
+    box-shadow: 0px 5px 6px -2px rgba(0,0,0,0.33);
+}
+
+/************AMBIENTE COACH***********/
+.info-coaches {
+    background-color: #E9E9E9;
+    border-radius:15px;
+}
+
+/************EDITAR PROCESO***********/

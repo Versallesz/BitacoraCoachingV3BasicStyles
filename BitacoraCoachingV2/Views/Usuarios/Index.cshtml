@@ -1,0 +1,79 @@
+﻿@model List<BitacoraCoachingV2.Models.TableViewModels.AmbCoachTableViewModel>
+@{
+    List<SelectListItem> items2 = (List<SelectListItem>)ViewBag.items2;
+    ViewBag.Title = "Index";
+}
+
+@using (Html.BeginForm("Buscar", "Usuarios", FormMethod.Post))
+{
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <p>Filtrar por Empresas</p>
+        </div>
+        <div class="panel-body">
+
+            <div class="col-lg-6">
+                @Html.DropDownList("empresas", items2, "Todas las empresas", new { @class = "form-control dropdown-coaches w-100 col-lg-7 col-md-6 col-sm-12 mb-2" })
+                <button type="submit" class="btn btn-info btn-buscar  col-lg-3 col-md-2 col-sm-12 mb-2">Filtrar <i class="fa fa-search" aria-hidden="true"></i></button>
+                <a href="~/Usuarios/NuevoUsuario" class="btn btn-secondary mb-2 col-sm-12 col-md-4">Nuevo Coachee</a>
+            </div>
+
+        </div>
+    </div>
+}
+
+<h2>Coachee's existentes</h2>
+<div class="row">
+    <div class="table-responsive col-lg-12">
+        <table class="table table-striped">
+            <tr>
+                <th>id</th>
+                <th>Email </th>
+                <th>Nombre</th>
+                <th>Contrasña</th>
+                <th>Telefono</th>
+                <th>Cargo</th>
+                <th>Rol</th>
+                <th>Empresa</th>
+                <th>Acciones</th>
+            </tr>
+            @foreach (var oElement in Model)
+            {
+                if (oElement.id_usuario != 0)
+                {
+                    var xd = oElement.id_usuario;
+                    <tr>
+                        <td>@oElement.id_usuario </td>
+                        <td>@oElement.email_usuario </td>
+                        <td>@oElement.nombre_usuario </td>
+                        <td>@oElement.pass_usuario </td>
+                        <td>@oElement.fono_usuario </td>
+                        <td>@oElement.cargo_usuario </td>
+                        <td>@oElement.Rol_id_rol </td>
+                        <td>@oElement.nombre_empresa </td>
+                        <td>
+
+                            <a class="btn btn-warning btn-block" href="/Coach/Editar?id_usuario=@oElement.id_usuario">Editar</a>
+                            <!-- Añadir mensaje de confirmación 'Desea eliminar el Coachee?'-->
+                            <a class="btn btn-danger btn-block" href="/Coach/Eliminar?id_usuario=@oElement.id_usuario">Eliminar</a>
+                            @*<button class="btn" style="color: #ffffff; background-color: #000000">@Html.ActionLink("Editar", "Editar", "Usuarios", new { id_usuario = oElement.id_usuario }, new { @style = "color: #ffffff" })</button>
+                            <button class="btn" style="color: #ffffff; background-color: #000000">@Html.ActionLink("Eliminar", "Eliminar", "Usuarios", new { id_usuario = oElement.id_usuario }, new { @style = "color: #ffffff" })</button>*@
+                        </td>
+                    </tr>
+
+                }
+
+            }
+        </table>
+
+    </div>
+</div>
+<script>
+    Editar = function (id_usuario) {
+        $.post(
+            'Usuarios/Editar', {
+            id_usuario: id_usuario
+        });
+    };
+</script>
+
